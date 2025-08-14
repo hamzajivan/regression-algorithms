@@ -41,10 +41,16 @@ class QuadRegModel:
             b = np.round(self.b, 5)
             c = np.round(self.c, 5)
             cost_val  = round(self.cost_fxn(), 5)
-            self.cost_history.append(cost_val)
-        
+            self.cost_history.append(cost_val)  
         print(f"Iter {i+1}: a= {self.a: 5f}, b= {self.b: 5f}, c= {self.c:5f}, cost_val= {self.cost_fxn(): 5f}")
         print(f"Quadratic Function of best fit: {self.a: 5f}x^2+{self.b: 5f}x+{self.c:5f}")
+        
+    def plot_cost(self):
+        plt.plot(range(1, len(self.cost_history) + 1), self.cost_history)
+        plt.xlabel("Iteration")
+        plt.ylabel("Cost J(w, b)")
+        plt.title("Cost function over iterations")
+        plt.show()
         
 def get_values(name):
     return list(map(float, input(f"Enter {name} values separated by commas:").split(",")))
@@ -64,6 +70,7 @@ model = QuadRegModel(
     alpha = alpha)
 
 model.train(iterations)
+model.plot_cost()
 
 
 # In[ ]:
